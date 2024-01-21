@@ -13,7 +13,6 @@ from engine import train_one_epoch, evaluate
 import utils
 
 
-
 class PennFudanDataset(torch.utils.data.Dataset):
     def __init__(self, root, transforms):
         self.root = root
@@ -92,13 +91,6 @@ def get_model_instance_segmentation(num_classes):
 
     return model
 
-os.system("wget https://raw.githubusercontent.com/pytorch/vision/main/references/detection/engine.py")
-os.system("wget https://raw.githubusercontent.com/pytorch/vision/main/references/detection/utils.py")
-os.system("wget https://raw.githubusercontent.com/pytorch/vision/main/references/detection/coco_utils.py")
-os.system("wget https://raw.githubusercontent.com/pytorch/vision/main/references/detection/coco_eval.py")
-os.system("wget https://raw.githubusercontent.com/pytorch/vision/main/references/detection/transforms.py")
-
-
 def get_transform(train):
     transforms = []
     if train:
@@ -149,7 +141,6 @@ params = [p for p in model.parameters() if p.requires_grad]
 optimizer = torch.optim.Adam(
     params,
     lr=0.005,
-    momentum=0.9,
     weight_decay=0.0005
 )
 
@@ -161,7 +152,7 @@ lr_scheduler = torch.optim.lr_scheduler.StepLR(
 )
 
 # let's train it for 5 epochs
-num_epochs = 1
+num_epochs = 3
 
 for epoch in range(num_epochs):
     # train for one epoch, printing every 10 iterations
